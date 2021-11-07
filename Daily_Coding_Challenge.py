@@ -286,7 +286,6 @@ def two_division():
         print('Please obey the rule - Provide a positive integer greater than 2.')
 
 
-# P-1.36
 def letters_count():
     """A Python program that inputs a list of words,
     and outputs how many times each alphabet appears in the list."""
@@ -312,7 +311,6 @@ def letters_count():
         print('Alphabet {0} appears {1} times.'.format(key, value))
 
 
-# P-1.31
 def make_change():
     """A Python program that can “make change.” The program can take two numbers as input,
     one that is a monetary amount charged and the other that is a monetary amount given. It should
