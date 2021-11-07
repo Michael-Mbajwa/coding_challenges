@@ -1,3 +1,362 @@
+import random
+import numpy as np
+
+
+def is_multiple(a, b):
+    """A function that calculates multiples"""
+
+    yes = 'Yes! {0} is a multiple of {1}.'.format(a, b)
+    No = 'No! {0} is not a multiple of {1}.'.format(a, b)
+    if a % b == 0:
+        return print(yes)
+    else:
+        return print(No)
+
+
+# Greatest Common divisor function
+def gcd(m, n):
+    while m % n != 0:
+        old_m = m
+        old_n = n
+
+        m = old_n
+        n = old_m % old_n
+    return n
+
+
+def minmax(data):
+    """A function that takes a sequence of one or more numbers, and returns the smallest and largest numbers,
+    in the form of a tuple of length two."""
+    length_data = len(data)
+    if len(data) == 0:
+        return print('This is an empty sequence.')
+    elif length_data == 1:
+        return print("This sequence contains only {0}.".format(data[0]))
+    else:
+        smallest = data[0]
+        for x in range(len(data)):
+            value = data[x]
+            for y in data:
+                if y < value:
+                    if y < smallest:
+                        smallest = y
+                    else:
+                        smallest
+                else:
+                    if value < smallest:
+                        smallest = value
+                    else:
+                        smallest
+
+        largest = data[0]
+        for a in range(len(data)):
+            value = data[a]
+            for b in data:
+                if b > value:
+                    if b > largest:
+                        largest = b
+                    else:
+                        largest
+                else:
+                    if value > largest:
+                        largest = value
+                    else:
+                        largest
+
+        result = [smallest, largest]
+        return print('A tuple with the smallest and largest values in the sequence:'
+                     '{0}'.format(tuple(result)))
+
+
+# R-1.4
+def sumsqr():
+    """ A short Python function that takes a positive integer n and
+    returns the sum of the squares of all the positive integers smaller than n."""
+    n = eval(input('Please input a positive integer: '))
+    y = str(n)
+
+    if n <= 0:
+        print('Sorry, I cannot work with this value.')
+    else:
+        values = []
+        while n > 0:
+            n -= 1
+            values.append(n)
+        print('Values less than {0} are {1}'.format(y, values))
+        sum_of_squares = sum((value ** 2) for value in values)
+        return print('The sum of squares of all positive integers smaller than {0} is {1}'.
+                     format(y, sum_of_squares))
+
+
+# R-1.6
+def sumsqrodd():
+    """A short Python function that takes a positive integer n and
+    returns the sum of the squares of all the odd positive integers smaller than n."""
+    n = eval(input('Please input a positive integer: '))
+    y = str(n)
+
+    if n <= 0:
+        print('Sorry, I cannot work with this value.')
+    else:
+        values = []
+        n -= 1
+        while n > 0:
+            if n % 2 != 0:
+                values.append(n)
+            n -= 1
+        print('Odd values less than {0} are {1}'.format(y, values))
+        sum_of_squares = sum((value ** 2) for value in values)
+        return print('The sum of squares of all positive integers smaller than {0} is {1}'.
+                     format(y, sum_of_squares))
+
+
+# R-1.11
+def double_value():
+    """Demonstrating how to use Python’s list comprehension syntax to produce
+    the list [1, 2, 4, 8, 16, 32, 64, 128, 256]."""
+    value = eval(input('Present any integer value: '))
+    list_double_value = [1]
+    for number in range(1, value):
+        value_doubled = list_double_value[-1] * 2
+        list_double_value.append(value_doubled)
+
+    return print('The double values of all numbers from 1 to {0} are {1}.'
+                 .format(value, list_double_value))
+
+
+# R-1.12
+def my_choice(seq):
+    """Using only the randrange function, implement your own version of the choice function."""
+    len_seq = len(seq)
+    i = random.randrange(len_seq)
+    result = seq[i]
+    return print(result)
+
+
+# C-1.13
+def reverse_list(s):
+    """A function that reverses a list of n integers,
+    so that the numbers are listed in the opposite order than they were before"""
+    n = len(s)
+    reversed_list = []
+    for i in range(-1, -(n + 1), -1):
+        item = s[i]
+        reversed_list.append(item)
+    return print(reversed_list)
+
+
+# C-1.14
+def distinct_pair(s):
+    """A short Python function that takes a sequence of integer values and
+    determines if there is a distinct pair of numbers in the sequence whose product is odd."""
+    pairs_with_odd_products = []
+    len_pairs = len(pairs_with_odd_products)
+    n = len(s)
+    for a in range(n):
+        initial_value = s[a]
+        for b in range(n):
+            if a != b:
+                next_value = s[b]
+                product = initial_value * next_value
+                if product % 2 != 0:
+                    tuple_product_pairs = tuple([initial_value, next_value])
+                    x, y = tuple_product_pairs
+                    if (x, y) not in pairs_with_odd_products and (y, x) not in pairs_with_odd_products:
+                        pairs_with_odd_products.append(tuple_product_pairs)
+
+    return print(pairs_with_odd_products)
+
+
+# C-1.15
+def distinct(s):
+    """A Python function that takes a sequence of numbers and
+    determines if all the numbers are different from each other (that is, they are distinct)."""
+    n = len(s)
+    condition = True
+    for i in range(n):
+        value_i = s[i]
+        for j in range(n):
+            if i != j:
+                value_j = s[j]
+                if value_i == value_j:
+                    condition = False
+    if not condition:
+        return print('This sequence {0} has duplicates.'.format(s))
+    else:
+        return print('This sequence {0} has no duplicates.'.format(s))
+
+
+# C-1.18
+def special_list():
+    """A function that produces the list [0, 2, 6, 12, 20, 30, 42, 56, 72, 90]."""
+    x = eval(input('Enter an integer that indicates the length of required list: '))
+    unique_list = []
+    for i in range(1, x + 1):
+        value = sum(y for y in range(i))
+        list_value = 2 * value
+        unique_list.append(list_value)
+
+    return print(unique_list)
+
+
+# C-1.20
+def shuffle_method(sequence):
+    """Python’s random module includes a function shuffle(data) that accepts a list of elements
+    and randomly reorders the elements so that each possi- ble order occurs with equal probability.
+    The random module includes a more basic function randint(a, b) that returns a uniformly
+    random integer from a to b (including both endpoints). Using only the randint function,
+    implement your own version of the shuffle function."""
+    sequence_copy = sequence[:]
+    reshuffled_list = []
+    length_sequence = len(sequence_copy)
+
+    while sequence_copy:
+        if length_sequence == 1:
+            value = sequence_copy[0]
+            reshuffled_list.append(value)
+            del sequence_copy[0]
+            length_sequence -= 1
+
+        else:
+            rand_int = random.randint(0, (length_sequence - 1))
+            new_value = sequence_copy[rand_int]
+            reshuffled_list.append(new_value)
+            del sequence_copy[rand_int]
+            length_sequence -= 1
+
+    return print(reshuffled_list)
+
+
+# C-1.24
+def vowel_counter(strings):
+    """A short Python function that counts the number of vowels in a given
+    character string."""
+    strings = strings.lower()
+    vowels = ['a', 'e', 'i', 'o', 'u']
+    count_vowels = 0
+    for string in strings:
+        if string in vowels:
+            count_vowels += 1
+
+    return print(count_vowels)
+
+
+# C-1.25
+def remove_punctuation(word):
+    """A short Python function that takes a strings,representing a sentence,
+    and returns a copy of the string with all punctuation removed."""
+    new_string = ''
+    alphabets = 'abcdefghijklmnopqrstuvwxyz '
+    for string in word:
+        if string.lower() in alphabets:
+            new_string += string
+    return print(new_string)
+
+
+# Collects a number from the user and forms stars with it. For example if 3 is passed, it will produce:
+# *
+# **
+# ***
+# **
+# *
+def form_stars():
+    n = eval(input('Provide a number: '))
+    star = '*'
+    for i in range(1, n + 1):
+        print(star * i)
+    for j in range(n - 1, 0, -1):
+        print(star * j)
+
+
+# P-1.30
+def two_division():
+    """A Python program that can take a positive integer greater than 2 as input and write out the
+    number of times one must repeatedly divide this number by 2 before getting a value less than 2"""
+    number = eval(input('Please provide an integer grater than 2: '))
+    count = 0
+    if number > 2:
+        remainder = number / 2
+        count += 1
+        while remainder >= 2:
+            remainder = remainder // 2
+            count += 1
+        print('You can repeatedly divide {0} by 2 {1}times before getting a '
+              'value less than 2.'.format(number, count))
+    else:
+        print('Please obey the rule - Provide a positive integer greater than 2.')
+
+
+# P-1.36
+def letters_count():
+    """A Python program that inputs a list of words,
+    and outputs how many times each alphabet appears in the list."""
+    x = input('Provide a word and lets count how many times each alphabet appears: ')
+    strings = []
+    for alpha in x:
+        if alpha != ' ':
+            strings.append(alpha.lower())
+
+    count_letters = {}
+    length_strings = len(strings)
+    for i in range(length_strings):
+        count = 1
+        for j in range(length_strings):
+            if i != j:
+                if strings[i] == strings[j]:
+                    count += 1
+
+        if strings[i] not in count_letters:
+            count_letters[strings[i]] = count
+
+    for key, value in count_letters.items():
+        print('Alphabet {0} appears {1} times.'.format(key, value))
+
+
+# P-1.31
+def make_change():
+    """A Python program that can “make change.” The program can take two numbers as input,
+    one that is a monetary amount charged and the other that is a monetary amount given. It should
+    then return the number of each kind of bill and coin to give back as change for the difference
+    between the amount given and the amount charged. The values assigned to the bills and coins are
+    be based on the monetary system of Nigeria.
+    Try to design your program so that it returns as few bills and coins as possible."""
+    amount_charged = eval(input('Input monetary amount charged in Nigerian Naira: '))
+    amount_given = eval(input('Input monetary amount given in Nigerian Naira: '))
+    change = amount_given - amount_charged
+    currencies = [1000, 500, 200, 100, 50, 20, 10, 5]
+    changes = []
+    if change < 0:  # Considers when a customer under pays.
+        print('The customer owes {0} Naira.'.format((-1 * change)))
+    elif change == 0:
+        print('The customer has no change.')
+    elif change < 5:  # Considers when the change is below the smallest unit of Naira notes.
+        print('Your {0} Naira change will be provided as coins.'.format(change))
+    else:
+        for currency in currencies:
+            if change - currency >= 0:
+                while change >= currency:  # This code makes sure that the next available currency isn't considered
+                    # until the current currency cannot subtract the available change.
+                    changes.append(currency)
+                    change = change - currency
+
+        count_numbers = {}  # This code counts each currency and its number of occurrences.
+        length_changes = len(changes)
+        for i in range(length_changes):
+            count = 1
+            for j in range(length_changes):
+                if i != j:  # Ensures you don't compare a number to itself to avoid duplicated counts.
+                    if changes[i] == changes[j]:
+                        count += 1
+
+            if changes[i] not in count_numbers:  # Ensures that a value in the dictionary is not repeatedly stored.
+                count_numbers[changes[i]] = count
+
+        print('Give the customer the following change: ')
+        for key, value in count_numbers.items():
+            print('{0} - {1} Naira note(s).'.format(value, key))
+        print('And {0} Naira coins.'.format(change))
+
+
 def binary_gap(n):
     """
     A binary gap within a positive integer N is any maximal sequence of consecutive zeros that is surrounded by ones at
