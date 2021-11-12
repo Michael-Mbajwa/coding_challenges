@@ -709,26 +709,6 @@ def check_sum(value):
     return main_sum
 
 
-"""
-Given the root to a binary tree, implement serialize(root), which serializes the tree into a string, and deserialize(s),
-which deserializes the string back into the tree.
-
-For example, given the following Node class
-
-class Node:
-    def __init__(self, val, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
-
-The following test should pass:
-
-node = Node('root', Node('left', Node('left.left')), Node('right'))
-assert deserialize(serialize(node)).left.left.val == 'left.left'
-
-"""
-
-
 def first_missing_integer_wrong(arr):
     # This is not a correct solution for this particular problem. This code only works if we are to work within the
     # interval of (min-1, max+1) of the arr. For example an arr like [15, 14, 13, 11] will give 10 instead of 0.
@@ -767,3 +747,76 @@ def first_missing_int(arr):
         except ValueError:
             return i
 
+
+def sum_two_numbers_poor(arr, k):
+    """
+    Given a list of numbers nums and a number k, return whether any two elements from the list add up to k.
+    You may not use the same element twice.
+
+    Note: Numbers can be negative or 0.
+
+    Constraints
+    n ≤ 100,000 where n is the length of nums
+    """
+    for i in range(len(arr)):
+        for j in range(i+1, len(arr)):
+            if arr[i] + arr[j] == k:
+                return True
+    return False
+
+
+def sum_two_numbers_strong(nums, k):
+    s = set()
+    for i in nums:
+        if k-i in s:
+            return True
+        else:
+            s.add(i)
+    return None
+
+
+def cons(a, b):
+    """
+    cons(a, b) constructs a pair, and car(pair) and cdr(pair) returns the first and last element of that pair.
+    For example, car(cons(3, 4)) returns 3, and cdr(cons(3, 4)) returns 4.
+
+    Given this implementation of cons:
+
+    def cons(a, b):
+        def pair(f):
+            return f(a, b)
+        return pair
+
+    Implement car and cdr.
+    """
+    def pair(f):
+        return f(a, b)
+    return pair
+
+
+def car(pair):
+    def first(a, b):
+        return a
+    return pair(first)
+
+
+def cdr(pair):
+    def second(a, b):
+        return b
+    return pair(second)
+
+
+car(cons(3, 4))
+cdr(cons(3, 4))
+
+
+def xor_linked_list():
+    """
+    An XOR linked list is a more memory efficient doubly linked list. Instead of each node holding next and prev fields,
+    it holds a field named both, which is an XOR of the next node and the previous node. Implement an XOR linked list;
+    it has an add(element) which adds the element to the end, and a get(index) which returns the node at index.
+
+    If using a language that has no pointers (such as Python), you can assume you have access to get_pointer and
+    dereference_pointer functions that converts between nodes and memory addresses.
+    """
+    return None
