@@ -277,14 +277,25 @@ class UnorderedList:
         self.head = None
 
     def is_empty(self):
+        """
+        Checks to see if the LinkedList is empty or not.
+        :return: True if it is empty and False otherwise.
+        """
         return self.head is None
 
     def add(self, item):
+        """
+        Adds an item to the linkedList
+        :param item: Item to be added to the linkedlist
+        """
         temp = Node(item)
         temp.set_next(self.head)
         self.head = temp
 
     def size(self):
+        """
+        :return: The number of items in the LinkedList
+        """
         current = self.head
         count = 0
         while current is not None:
