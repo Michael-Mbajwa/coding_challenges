@@ -123,7 +123,7 @@ class Graph:
         """
         # first check if the vertex exists
         if v not in self.nodes:
-            return 'This vertex does not exist. Use the add_vertex method to add a vetex.'
+            return 'This vertex does not exist. Use the add_vertex method to add a vertex.'
         else:
             degree = len(self.nodes[v].values())
             return degree
