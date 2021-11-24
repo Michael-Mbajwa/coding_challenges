@@ -874,6 +874,98 @@ def encoded_msg(msg):
     return len(messages) + 1
 
 
+def non_adj_sum(arr):
+    """
+    Given a list of integers, write a function that returns the largest sum of non-adjacent numbers.
+    Numbers can be 0 or negative.
+
+    For example, [2, 4, 6, 2, 5] should return 13, since we pick 2, 6, and 5. [5, 1, 1, 5] should return 10,
+    since we pick 5 and 5.
+
+    Follow-up: Can you do this in O(N) time and constant space?
+    """
+    sums = set()
+    for i in range(len(arr)):
+        n = 2
+        while n < len(arr):
+            if len(arr[i::n]) > 1:
+                sums.add(sum(arr[i::n]))
+            n += 1
+    return max(sums)
+
+
+def auto_com(s, s_s):
+    """
+    Implement an autocomplete system. That is, given a query string s and a set of all possible query strings,
+    return all strings in the set that have s as a prefix.
+
+    For example, given the query string de and the set of strings [dog, deer, deal], return [deer, deal].
+
+    Hint: Try preprocessing the dictionary into a more efficient data structure to speed up queries."""
+
+    """
+    - The best data structure for faster searching of string is TRIE.
+    Tries are an extremely special and useful data-structure that are based on the prefix of a string. 
+    - They are used to represent the “Retrieval” of data.
+    A Trie is a special data structure used to store strings that can be visualized like a graph. 
+    It consists of nodes and edges.
+    Each node consists of at max 26 children and edges connect each parent node to its children. 
+    These 26 pointers are nothing but pointers for each of the 26 letters of the English alphabet
+    A separate edge is maintained for every edge.
+    Strings are stored in a top to bottom manner on the basis of their prefix in a trie.
+    All prefixes of length 1 are stored at until level 1, all prefixes of length 2 are sorted at until 
+    level 2 and so on.
+    """
+    s_l = len(s)
+    result = set()
+    for i in s_s:
+        if i[0:s_l] == s:
+            result.add(i)
+    return result
+
+
+def climb_stairs(n, x):
+    """
+    There exists a staircase with N steps, and you can climb up either 1 or 2 steps at a time. Given N, write a
+    function that returns the number of unique ways you can climb the staircase. The order of the steps matters.
+    For example, if N is 4, then there are 5 unique ways:
+    1, 1, 1, 1
+    2, 1, 1
+    1, 2, 1
+    1, 1, 2
+    2, 2
+    What if, instead of being able to climb 1 or 2 steps at a time, you could climb any number from a set of
+    positive integers X? For example, if X = {1, 3, 5}, you could climb 1, 3, or 5 steps at a time.
+    """
+    if x == 1:
+        return 1
+    steps = set()
+    factors = [i for i in range(1, x+1)]
+    arr = [1] * n
+    for i in range(len(arr)):
+        start_point = sum([arr[i] for i in range(i+1)])
+        if start_point <= x:
+            for j in factors:
+                check_n = start_point
+                step_str = str(check_n)
+                temp_j = j
+
+                while check_n < n:
+                    temp_ch = check_n
+                    check_n += temp_j
+
+                    if check_n > n:
+                        check_n = temp_ch
+                        temp_j -= 1
+                    else:
+                        step_str += str(temp_j)
+
+                steps.add(step_str)
+                steps.add(step_str[::-1])
+
+    return steps  # I choose to return the steps so the result can be easily understood.
+
+
 def uni_val(tree):
     """
     A unival tree (which stands for "universal value") is a tree where all nodes under it have the same value.
@@ -893,21 +985,141 @@ def uni_val(tree):
     return None
 
 
-def non_adj_sum(arr):
+def longest_sub_str(s, k):
     """
-    Given a list of integers, write a function that returns the largest sum of non-adjacent numbers.
-    Numbers can be 0 or negative.
+    Given an integer k and a string s, find the length of the longest substring that contains at most k
+    distinct characters.
 
-    For example, [2, 4, 6, 2, 5] should return 13, since we pick 2, 6, and 5. [5, 1, 1, 5] should return 10,
-    since we pick 5 and 5.
-
-    Follow-up: Can you do this in O(N) time and constant space?
+    For example, given s = "abcba" and k = 2, the longest substring with k distinct characters is "bcb".
+    :return:
     """
-    sums = set()
-    for i in range(len(arr)):
-        n = 2
-        while n < len(arr):
-            if len(arr[i::n]) > 1:
-                sums.add(sum(arr[i::n]))
-            n += 1
-    return max(sums)
+    if len(s) == 1:
+        return 1
+
+    paths = []
+    len_paths = []
+    for i in range(len(s)):
+        j = i + 1
+        count = 0
+        cons = {s[i]}
+        path = s[i]
+        log = True
+        while j < len(s) and log:
+            cons.add(s[j])
+            count += 1
+            path += s[j]
+            j += 1
+            if len(cons) > k:
+                path = path[:len(path) - 1]
+                count = count - 1
+                log = False
+
+        paths.append(path)
+        len_paths.append(count)
+
+    return paths, len_paths  # I choose to return a list of the path so it can be easily understood. Not advisable
+    # for interview.
+
+
+def pi_estimate():
+    """
+    The area of a circle is defined as πr^2. Estimate π to 3 decimal places using a Monte Carlo method.
+
+    Hint: The basic equation of a circle is x2 + y2 = r2.
+    :return:
+    """
+    return None
+
+
+def rand_prob(element):
+    """
+    Given a stream of elements too large to store in memory, pick a random element from the
+    stream with uniform probability.
+    :param element:
+    :return:
+    """
+    return None
+
+
+def last_order():
+    """
+    You run an e-commerce website and want to record the last N order ids in a log. Implement a data structure
+    to accomplish this, with the following API:
+
+    record(order_id): adds the order_id to the log
+    get_last(i): gets the ith last element from the log. i is guaranteed to be smaller than or equal to N.
+
+    You should be as efficient with time and space as possible.
+    :return:
+    """
+    return None
+
+
+def sub_dir():
+    """
+    Good morning! Here's your coding interview problem for today.
+    This problem was asked by Google.
+    Suppose we represent our file system by a string in the following manner:
+    The string "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext" represents:
+    dir
+        subdir1
+        subdir2
+            file.ext
+
+    The directory dir contains an empty sub-directory subdir1 and a sub-directory subdir2 containing a file file.ext.
+    The string "dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext" represents:
+    dir
+        subdir1
+            file1.ext
+            subsubdir1
+        subdir2
+            subsubdir2
+                file2.ext
+
+    The directory dir contains two sub-directories subdir1 and subdir2. subdir1 contains a file file1.ext
+    and an empty second-level sub-directory subsubdir1. subdir2 contains a second-level sub-directory subsubdir2
+    containing a file file2.ext.
+
+    We are interested in finding the longest (number of characters) absolute path to a file within our file system. For example, in the second example above, the longest absolute path is "dir/subdir2/subsubdir2/file2.ext", and its length is 32 (not including the double quotes).
+
+    Given a string representing the file system in the above format, return the length of the longest absolute path to a file in the abstracted file system. If there is no file in the system, return 0.
+
+    Note:
+
+    The name of a file contains at least a period and an extension.
+
+    The name of a directory or sub-directory will not contain a period.
+    :return: None
+    """
+    return None
+
+
+def max_sub_arr(arr):
+    """
+    Given an array of integers and a number k, where 1 <= k <= length of the array, compute the maximum
+    values of each sub array of length k.
+
+    For example, given array = [10, 5, 2, 7, 8, 7] and k = 3, we should get: [10, 7, 8, 8], since:
+
+    10 = max(10, 5, 2)
+    7 = max(5, 2, 7)
+    8 = max(2, 7, 8)
+    8 = max(7, 8, 7)
+
+    Do this in O(n) time and O(k) space. You can modify the input array in-place and you do not need to store
+    the results. You can simply print them out as you compute them.
+    """
+    return None
+
+
+def builder():
+    """
+    A builder is looking to build a row of N houses that can be of K different colors. He has a goal of minimizing
+    cost while ensuring that no two neighboring houses are of the same color.
+
+    Given an N by K matrix where the nth row and kth column represents the cost to build the nth house with kth color,
+    return the minimum cost which achieves this goal.
+    :return:
+    """
+    return None
+
