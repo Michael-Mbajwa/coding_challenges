@@ -25,5 +25,4 @@ def max_sub_arr(arr, k):
 
 
 # One thing I noticed with this code is we are asked to get sub arrays sequentially. That is, from index 0 to the end.
-# I will write a code that gets actually attempts all possible combinations
 print(list(max_sub_arr([10, 5, 2, 7, 8, 7], 3)))
