@@ -40,3 +40,6 @@ if __name__ == "__main__":
     result = running_median([2, 1, 5, 7, 2, 0, 5])
     for i in result:
         print(i)
+
+    result2 = running_median([5, 15, 10, 20, 3])
+    print(result2)
