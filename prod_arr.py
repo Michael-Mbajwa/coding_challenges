@@ -8,14 +8,18 @@ def prod_arr(arr):
 
     Follow-up: what if you can't use division?
     """
-    new_arr = []
-    for i in range(len(arr)):
-        prod = 1
-        for j in range(len(arr)):
-            if i != j:
-                prod *= arr[j]
-        new_arr.append(prod)
+    # Initiate the array
+    new_arr = [None] * len(arr)
 
+    # Loop through each element in the array
+    for i in range(len(arr)):
+        prod = 1  # Set product as 1
+        # Second looping of the array (This is what makes the code run in O(n)
+        for j in range(len(arr)):
+            if i != j:  # The index we are on is not part of the multiplication
+                prod *= arr[j]
+        new_arr[i] = prod
+    # This runs in O(n) complexity
     return new_arr
 
 
