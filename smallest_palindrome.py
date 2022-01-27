@@ -1,7 +1,7 @@
 import itertools
 
 
-# Not 100% effective
+# Not effective
 def smallest_palindrome(string):
     """
     This problem was asked by Quora.
