@@ -29,7 +29,7 @@ def zigzag(string, k):
         i += 1
 
     while i < len(string):
-        if count == 0:  # If count is 0, it means our zigzag is coming down.
+        if count == 0:  # If count is 0, it means our zigzag is descending.
             count = 1
             count2 = 1  # This helps in creating the spaces between numbers
             while count < k and i < len(string):
@@ -38,7 +38,7 @@ def zigzag(string, k):
                 count2 += 2  # Looking at the zigzag, you will see spaces between numbers increase by 2 after each line
                 i += 1
 
-        elif count == k:  # If count equals to provided k, our zigzag is going up
+        elif count == k:  # If count equals to provided k, our zigzag is ascending.
             count = k - 2
             count2 = 1
             while count >= 0 and i < len(string):
