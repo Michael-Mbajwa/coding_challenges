@@ -14,7 +14,7 @@ def zigzag(string, k):
     :param k:
     :return:
     """
-    # Initialize dictionary
+    # Initialize dictionary. The number of keys depends on the provided k value
     g = defaultdict(str)
     for j in range(k):
         g[j] = ""
@@ -22,23 +22,23 @@ def zigzag(string, k):
     count = 0
     i = 0
 
-    # First stage for printing the first line. This line doesn't follow the same trend as the rest
+    # This while loop prints the first line of the zig zag
     while count < k:
         g[count] += (" " * count) + string[i]
         count += 1
         i += 1
 
     while i < len(string):
-        if count == 0:
+        if count == 0:  # If count is 0, it means our zigzag is coming down.
             count = 1
-            count2 = 1
+            count2 = 1  # This helps in creating the spaces between numbers
             while count < k and i < len(string):
                 g[count] += (" " * count2) + string[i]
                 count += 1
-                count2 += 2
+                count2 += 2  # Looking at the zigzag, you will see spaces between numbers increase by 2 after each line
                 i += 1
 
-        elif count == k:
+        elif count == k:  # If count equals to provided k, our zigzag is going up
             count = k - 2
             count2 = 1
             while count >= 0 and i < len(string):
