@@ -222,7 +222,7 @@ def add_linked_list(l1, l2):
 
 
 if __name__ == "__main__":
-    ll1 = LinkedList(9)
+    """ll1 = LinkedList(9)
     # ll1.prepend(3)
     # ll1.prepend(9)
     ll1.prepend(9)
@@ -230,6 +230,21 @@ if __name__ == "__main__":
     ll2 = LinkedList(2)
     ll2.prepend(5)
     # ll2.prepend(6)
+    node2 = ll2.get_head()
+    result2 = add_linked_list(node1, node2)
+    current = result2
+    while current is not None:
+        print(current.get_data())
+        current = current.get_next()"""
+
+    ll1 = LinkedList(7)
+    ll1.prepend(3)
+    ll1.prepend(9)
+    ll1.prepend(5)
+    node1 = ll1.get_head()
+    ll2 = LinkedList(1)
+    ll2.prepend(9)
+    ll2.prepend(6)
     node2 = ll2.get_head()
     result2 = add_linked_list(node1, node2)
     current = result2
