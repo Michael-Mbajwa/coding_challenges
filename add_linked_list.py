@@ -1,10 +1,14 @@
 """
-Given the head of a singly LinkedList, reverse it in-place.
+We can represent an integer in a linked list format by having each node represent a digit in the number.
+The nodes are connected in reverse order, such that the number 54321 is represented by the following linked list:
+1-->2-->3-->4-->5.
+Given two linked lists in this format, return their sum. For example, given:
+9-->9 and 5-->2 return 99+25=124: 4-->2--1
 """
-# Solution begins at line 135
+# Scroll to line 139 to see solution for the coding challenge
 
 
-# Linked lists
+# I first create the Node and class for the LinkedList.
 class Node:
     """
     A class for a singly LinkedList with a pointer to the next Node.
@@ -133,40 +137,102 @@ class LinkedList:
         return result
 
 
-def reversed_linked_list(head):
+# The main solution for the code
+def add_nodes(a, b, rem):
+    add = a + b + rem
+    return add
+
+
+def add_result(s, res):
     """
-    Given the head of a singly LinkedList, reverse it in-place.
-    :param head: head of linked list to be reversed
+    Ensures the resulting linked list is arranged in the right manner.
+    :param s:
+    :param res:
     :return:
     """
-    if head is None:  # The case where the LinkedList is empty
+    if res is None:  # if the result is empty then we just start by creating a node
+        res = Node(s)
+    else:
+        # Because each new sum is appended instead of prepended to the LinkedList, we move to the end before adding a
+        # new node.
+        temp = res
+        while temp.get_next() is not None:
+            temp = temp.get_next()
+        temp.set_next(Node(s))
+    return res
+
+
+def add_linked_list(l1, l2):
+    """
+    We can represent an integer in a linked list format by having each node represent a digit in the number.
+    The nodes are connected in reverse order, such that the number 54321 is represented by the following linked list:
+    1-->2-->3-->4-->5.
+    Given two linked lists in this format, return their sum. For example, given:
+    9-->9 and 5-->2 return 99+25=124: 4-->2--1
+    :param l1:
+    :param l2:
+    :return: new LinkedList
+    """
+    # Some constraints I consider: Each node cannot contain a digit greater than 9
+
+    # If either one of the nodes is None, we return the node that is not None
+    if l1 and l2 is None:
+        return l1
+    if l2 and l1 is None:
+        return l2
+    # If both nodes are None, return None
+    if l1 is None and l2 is None:
         return None
-    if head.get_next() is None:  # Situation where the LinkedList contains only one item
-        return head
 
-    # A singly linked list follows this logic: 2->9->6->3->5->None. To reverse it, we could instead simply make each
-    # node point to the element before it. None<-2<-9<-6<-3<-5 == 5->3->6->9->2->None
+    # Main code
+    result = None
+    remainder = 0
 
-    prev, _current = None, head
+    while l1 and l2:  # First while loop only works when both nodes still have data. Terminates once any node is Null.
+        add = add_nodes(l1.get_data(), l2.get_data(), remainder)
+        if add >= 10:
+            remainder = 1
+            result = add_result((add-10), result)
+        else:
+            remainder = 0
+            result = add_result(add, result)
+        l1 = l1.get_next()  # Call the next nodes
+        l2 = l2.get_next()
 
-    while _current is not None:
-        temp = _current.get_next()
-        _current.set_next(prev)
-        prev = _current
-        _current = temp
+    if l1 or l2:  # If either one of the nodes still contains digits to be summed
+        if l1: final = l1
+        else: final = l2
+        while final:  # Terminates when the node empty
+            add = final.get_data() + remainder
+            if add >= 10:
+                remainder = 1
+                result = add_result((add - 10), result)
+            else:
+                remainder = 0
+                result = add_result(add, result)
+            final = final.get_next()
 
-    return prev
+    # For cases where the remainder still carries a value because of a previous summation resulting to a number greater
+    # than 10
+    if remainder == 0:
+        return result
+    else:
+        result = add_result(remainder, result)
+        return result
 
 
 if __name__ == "__main__":
-    ll = LinkedList(5)
-    ll.prepend(3)
-    ll.prepend(6)
-    ll.prepend(9)
-    ll.prepend(2)
-    head = ll.get_head()
-    reversed_ll = reversed_linked_list(head)
-    current = reversed_ll
+    ll1 = LinkedList(9)
+    # ll1.prepend(3)
+    # ll1.prepend(9)
+    ll1.prepend(9)
+    node1 = ll1.get_head()
+    ll2 = LinkedList(2)
+    ll2.prepend(5)
+    # ll2.prepend(6)
+    node2 = ll2.get_head()
+    result2 = add_linked_list(node1, node2)
+    current = result2
     while current is not None:
         print(current.get_data())
         current = current.get_next()
