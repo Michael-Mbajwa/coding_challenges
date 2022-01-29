@@ -1,6 +1,3 @@
-from itertools import combinations, permutations
-
-
 def max_sub_arr(arr, k):
     """
     Given an array of integers and a number k, where 1 <= k <= length of the array, compute the maximum
@@ -21,8 +18,9 @@ def max_sub_arr(arr, k):
         return "Wrong k"
 
     for i in range((length - k) + 1):
-        yield max(arr[i:k+i])
+        yield max(arr[i:k + i])
 
 
+# The above code is naive and takes O(n*k) time
 # One thing I noticed with this code is we are asked to get sub arrays sequentially. That is, from index 0 to the end.
 print(list(max_sub_arr([10, 5, 2, 7, 8, 7], 3)))
