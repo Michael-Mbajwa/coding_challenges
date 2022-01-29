@@ -1,3 +1,48 @@
+# A more optimal solution
+class MaxStack:
+    """
+    Implement a stack that has the following methods:
+        • push(va1): push va1 onto the stack
+        • pop: pop off and return the topmost element of the stack. If there are no elements in the stack,
+        throw an error.
+        • max: return the maximum value in the stack currently. If there are no elements in the stack, throw an error.
+    Each method should run in constant time.
+    """
+    def __init__(self, data=None):
+        if data:
+            self.stack = [data]
+            self._max = [data]
+        else:
+            self.stack = []
+            self._max = []
+
+    def push(self, val):
+        """
+        Appends item only to the end of the list
+        :param val: new item
+        :return:
+        """
+        self.stack.append(val)
+        if self._max:
+            self._max.append(max(val, self._max[-1]))  # Ensure
+        else:
+            self._max.append(val)
+
+    def _pop(self):
+        """
+        :return: removes and returns the last item to be added
+        """
+        if self._max:
+            self._max.pop()
+        return self.stack.pop()
+
+    def max_val(self):
+        """
+        :return: The last item that was added
+        """
+        return self._max[-1]
+
+
 class Stack:
     """
     This problem was asked by Amazon.
