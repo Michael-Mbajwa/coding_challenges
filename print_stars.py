@@ -1,4 +1,7 @@
 def stars(n):
+    """
+    Asked by Amazon
+    """
     nrows = n * 2 - 1
     star = "*"
     n_steps = 1
